@@ -9,21 +9,21 @@ import java.math.BigDecimal;
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
     private BigDecimal salary;
 
-    public Employee(Long id, String firstName, String lastName, BigDecimal salary) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.salary = salary;
-    }
-
+    //    public Employee(Long id, String firstName, String lastName, BigDecimal salary) {
+//        this.id = id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.salary = salary;
+//    }
+//
     public Employee(){
-        super();
+//        super();
     }
 
     public Long getId() {

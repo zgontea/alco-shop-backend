@@ -17,11 +17,12 @@ public class RunAtStart {
         this.employeeRepository = employeeRepository;
     }
 
+    @PostConstruct
     public void runAtStart(){
         Employee employee = new Employee();
         employee.setFirstName("Jan");
-        employee.setLastName("Kowalski");
-        employee.setSalary(new BigDecimal("3000"));
+        employee.setLastName("Banan");
+        employee.setSalary(new BigDecimal("4000"));
 
         employeeRepository.save(employee);
 
