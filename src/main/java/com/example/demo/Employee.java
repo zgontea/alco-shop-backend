@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -14,6 +17,10 @@ public class Employee {
     private String firstName;
     private String lastName;
     private BigDecimal salary;
+
+    @ManyToOne
+    @JoinColumn
+    private Department dep;
 
     //    public Employee(Long id, String firstName, String lastName, BigDecimal salary) {
 //        this.id = id;

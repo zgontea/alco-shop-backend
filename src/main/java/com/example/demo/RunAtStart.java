@@ -6,15 +6,21 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class RunAtStart {
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public RunAtStart(EmployeeRepository employeeRepository) {
+    public RunAtStart(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
         super();
         this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     @PostConstruct
@@ -24,7 +30,23 @@ public class RunAtStart {
         employee.setLastName("Banan");
         employee.setSalary(new BigDecimal("4000"));
 
-        employeeRepository.save(employee);
+        // employeeRepository.save(employee);
+
+        Set<Employee> employees = new HashSet<Employee>();
+
+        employees.add(employee);
+
+        Department dep = new Department();
+        dep.setName("JakisTam");
+        dep.setEmployees(employees);
+
+        departmentRepository.save(dep);
+
+        Iterable<Employee> jansIterable = employeeRepository.findAllWhereName("Banan");
+
+        jansIterable.forEach(e -> {
+            System.out.println(e);
+        });
 
     }
 }
