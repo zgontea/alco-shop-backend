@@ -2,7 +2,6 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -10,40 +9,55 @@ import java.util.*;
 
 @Component
 public class RunAtStart {
-    private final EmployeeRepository employeeRepository;
-    private final DepartmentRepository departmentRepository;
+    private final CategoryRepository categoryRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public RunAtStart(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+    public RunAtStart(CategoryRepository categoryRepository, OrderDetailRepository orderDetailRepository,
+                      OrderRepository orderRepository,ProductRepository productRepository, UserRepository userRepository) {
         super();
-        this.employeeRepository = employeeRepository;
-        this.departmentRepository = departmentRepository;
+        this.categoryRepository = categoryRepository;
+        this.orderDetailRepository = orderDetailRepository;
+        this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     @PostConstruct
     public void runAtStart(){
-        Employee employee = new Employee();
-        employee.setFirstName("Jan");
-        employee.setLastName("Banan");
-        employee.setSalary(new BigDecimal("4000"));
 
-        // employeeRepository.save(employee);
+        User user1 = new User("Jan", "Kowalski","jankowalski@gmail.com" ,"12345",false);
+        User user2 = new User("Marta", "Zalewska", "siema@lol.pl", "doripala", true);
+        userRepository.save(user1);
+        userRepository.save(user2);
 
-        Set<Employee> employees = new HashSet<Employee>();
+        Category pipka = new Category();
+        pipka.setCategoryName("Wodeczki");
+        pipka.setDescription("Pipedeczki");
 
-        employees.add(employee);
+        Date date = new Date();
+        Product product = new Product("Zubrowka","image1", new BigDecimal("7.50"), pipka);
 
-        Department dep = new Department();
-        dep.setName("JakisTam");
-        dep.setEmployees(employees);
+        productRepository.save(product);
 
-        departmentRepository.save(dep);
+        OrderDetail orderDetail = new OrderDetail();
+        Set<OrderDetail> orderDetails = new HashSet<>();
+        orderDetails.add(orderDetail);
 
-        Iterable<Employee> jansIterable = employeeRepository.findAllWhereName("Banan");
+        Order order = new Order("Dori Palka", "lol@wp.pl", null, "JedlinaSciernisko", "Polako", "95-020", date, user1, orderDetails);
 
-        jansIterable.forEach(e -> {
-            System.out.println(e);
-        });
+        orderDetail.setPrice(new BigDecimal("20"));
+        orderDetail.setProduct(product);
+        orderDetail.setQuantity(1);
+        orderDetail.setOrder(order);
+
+
+
+
+        orderRepository.save(order);
 
     }
 }
