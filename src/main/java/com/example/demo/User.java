@@ -5,9 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
-public class User
-{
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false)
@@ -15,16 +14,16 @@ public class User
     private String name;
     private String surname;
 
-    @Column(name = "email",unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "is_admin",nullable = false)
+    @Column(name = "is_admin", nullable = false)
     private boolean isAdmin;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
     public User(String name, String surname, String email, String password, boolean isAdmin) {
@@ -45,7 +44,6 @@ public class User
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
-
 
     public void setId(Long id) {
         this.id = id;
@@ -71,33 +69,27 @@ public class User
         this.surname = surname;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public boolean isAdmin()
-    {
+    public boolean isAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin)
-    {
+    public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
 }
