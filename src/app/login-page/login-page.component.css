@@ -1,0 +1,24 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+mat-card {
+    width: 33%;
+    height: 28%;
+    min-height: 250px;
+    max-width: 500px;
+    margin: 2em auto;
+    text-align: center;
+}
+  
+mat-form-field {
+    display: inherit;
+    padding-bottom: 5%;
+}
