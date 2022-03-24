@@ -28,19 +28,19 @@ public class RunAtStart {
     @PostConstruct
     public void runAtStart() {
 
-        User user1 = new User("Jan", "Kowalski", "jankowalski@gmail.com", "12345", false);
-        User user2 = new User("Marta", "Zalewska", "siema@lol.pl", "doripala", true);
+        User user1 = new User("Eryk","Dorosz","erykdorosz@gmail.com","12345", false);
+        User user2 = new User("Marta", "Zalewska", "siema@lol.pl", "12378", true);
         userRepository.save(user1);
         userRepository.save(user2);
 
-        Category pipka = new Category();
-        pipka.setCategoryName("Wodeczki");
-        pipka.setDescription("Pipedeczki");
+        Category category = new Category();
+        category.setCategoryName("Wodeczki");
+        category.setDescription("Dobre, bo polskie");
 
-        categoryRepository.save(pipka);
+        categoryRepository.save(category);
 
         Date date = new Date();
-        Product product = new Product("Zubrowka", "image1", new BigDecimal("7.50"), pipka);
+        Product product = new Product("Zubrowka", "image1", new BigDecimal("7.50"), category);
 
         productRepository.save(product);
 
@@ -48,7 +48,7 @@ public class RunAtStart {
         Set<OrderDetail> orderDetails = new HashSet<>();
         orderDetails.add(orderDetail);
 
-        Order order = new Order("Dori Palka", "lol@wp.pl", null, "JedlinaSciernisko", "Polako", "95-020", date, user1,
+        Order order = new Order("Jan Gontarski", "lol@wp.pl", "666555444", "Zielona Dziura", "Polako", "95-020", date, user1,
                 orderDetails);
 
         orderDetail.setPrice(new BigDecimal("20"));
