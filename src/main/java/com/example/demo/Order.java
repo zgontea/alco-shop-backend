@@ -1,11 +1,19 @@
 package com.example.demo;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Data
 @Table(name = "orders")
 public class Order {
     @Id
@@ -54,86 +62,4 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    public Order() {
-    }
-
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetail(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public String getShipTo() {
-        return shipTo;
-    }
-
-    public void setShipTo(String shipTo) {
-        this.shipTo = shipTo;
-    }
-
-    public String getShipEmail() {
-        return shipEmail;
-    }
-
-    public void setShipEmail(String shipEmail) {
-        this.shipEmail = shipEmail;
-    }
-
-    public String getShipPhoneNo() {
-        return shipPhoneNo;
-    }
-
-    public void setShipPhoneNo(String shipPhoneNo) {
-        this.shipPhoneNo = shipPhoneNo;
-    }
-
-    public String getShipCity() {
-        return shipCity;
-    }
-
-    public void setShipCity(String shipCity) {
-        this.shipCity = shipCity;
-    }
-
-    public String getShipCountry() {
-        return shipCountry;
-    }
-
-    public void setShipCountry(String shipCountry) {
-        this.shipCountry = shipCountry;
-    }
-
-    public String getShipPostalCode() {
-        return shipPostalCode;
-    }
-
-    public void setShipPostalCode(String shipPostalCode) {
-        this.shipPostalCode = shipPostalCode;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
