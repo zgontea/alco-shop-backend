@@ -1,10 +1,25 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.annotation.PostConstruct;
+
+import com.example.demo.entities.Category;
+import com.example.demo.entities.Order;
+import com.example.demo.entities.OrderDetail;
+import com.example.demo.entities.Product;
+import com.example.demo.entities.User;
+import com.repositories.CategoryRepository;
+import com.repositories.OrderDetailRepository;
+import com.repositories.OrderRepository;
+import com.repositories.ProductRepository;
+import com.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.util.*;
 
 @Component
 public class RunAtStart {
@@ -28,7 +43,7 @@ public class RunAtStart {
     @PostConstruct
     public void runAtStart() {
 
-        User user1 = new User("Eryk","Dorosz","erykdorosz@gmail.com","12345", false);
+        User user1 = new User("Eryk", "Dorosz", "erykdorosz@gmail.com", "12345", false);
         User user2 = new User("Marta", "Zalewska", "siema@lol.pl", "12378", true);
         userRepository.save(user1);
         userRepository.save(user2);
@@ -48,8 +63,8 @@ public class RunAtStart {
         Set<OrderDetail> orderDetails = new HashSet<>();
         orderDetails.add(orderDetail);
 
-        Order order = new Order("Jan Gontarski", "lol@wp.pl", "666555444", "Zielona Dziura", "Polako", "95-020", date, user1,
-                orderDetails);
+        Order order = new Order("Jan Gontarski", "lol@wp.pl", "666555444", "Zielona Dziura", "Polako", "95-020", date, user1);
+        order.setOrderDetails(orderDetails);
 
         orderDetail.setPrice(new BigDecimal("20"));
         orderDetail.setProduct(product);

@@ -1,19 +1,25 @@
-package com.example.demo;
+package com.example.demo.entities;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
+@Component
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Data
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@Getter
+@Setter
 @Table(name = "orders")
 public class Order {
     @Id
@@ -21,45 +27,40 @@ public class Order {
     @Column(name = "order_id", unique = true, nullable = false)
     private Long id;
 
+    @NonNull
     @Column(name = "ship_to", nullable = false)
     private String shipTo;
-
+    
+    @NonNull
     @Column(name = "ship_email", nullable = false)
     private String shipEmail;
-
+    
+    @NonNull
     @Column(name = "ship_phone_no", nullable = true)
     private String shipPhoneNo;
-
+    
+    @NonNull
     @Column(name = "ship_city", nullable = false)
     private String shipCity;
-
+    
+    @NonNull
     @Column(name = "ship_country", nullable = false)
     private String shipCountry;
 
+    @NonNull
     @Column(name = "ship_postal_code", nullable = false)
     private String shipPostalCode;
 
+    @NonNull
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderDetail> orderDetails = new HashSet<>();
-
-    public Order(String shipTo, String shipEmail, String shipPhoneNo, String shipCity, String shipCountry,
-            String shipPostalCode, Date orderDate, User user, Set<OrderDetail> orderDetails) {
-        this.shipTo = shipTo;
-        this.shipEmail = shipEmail;
-        this.shipPhoneNo = shipPhoneNo;
-        this.shipCity = shipCity;
-        this.shipCountry = shipCountry;
-        this.shipPostalCode = shipPostalCode;
-        this.orderDate = orderDate;
-        this.user = user;
-        this.orderDetails = orderDetails;
-    }
+    private Set<OrderDetail> orderDetails;
 
 }
