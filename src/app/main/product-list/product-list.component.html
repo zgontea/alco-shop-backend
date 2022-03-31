@@ -1,0 +1,12 @@
+<nb-layout-column class="column">
+  <div class="container">
+    <nb-card class="product-card" *ngFor="let product of products">
+      {{product.name}}
+      {{product.unitPrice}}
+      <div *ngIf="product.category">
+        {{product.category.description}}
+      </div>
+
+    </nb-card>
+  </div>
+</nb-layout-column>

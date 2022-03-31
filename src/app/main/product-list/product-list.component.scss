@@ -1,0 +1,16 @@
+.column {
+  height: 100%;
+  width: 100%;
+
+  .container {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .product-card {
+      height: 40%;
+      flex-basis: calc(100% / 3 - 1rem);
+    }
+  }
+}

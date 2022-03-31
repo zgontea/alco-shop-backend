@@ -1,3 +1,9 @@
-<!-- <mat-slider min="1" max="10000" step="1" value="50"></mat-slider> -->
-<login-page></login-page>
+<nb-layout>
+  <nb-layout-header fixed>
+    <app-top-bar class="top-bar" [user]="user" (logoutEvent)="logout()"></app-top-bar>
+  </nb-layout-header>
 
+  <nb-layout-column class="main-container">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

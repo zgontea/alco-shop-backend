@@ -1,0 +1,39 @@
+<nb-layout-column class="login-wrapper">
+  <nb-card class="login-card" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">
+    <nb-card-header class="login-header">
+      <h1>Login</h1>
+    </nb-card-header>
+    <nb-card-body class="login-container">
+
+      <nb-alert *ngIf="error" status="danger" class="error">
+        {{error}}
+      </nb-alert>
+
+      <form class="form-layout" #loginForm="ngForm" (ngSubmit)="login()">
+
+        <div class="form-input-container">
+          <input class="form-input input-full-width" nbInput placeholder="username" type="text" id="username" name="username" required
+                 [(ngModel)]="loginData.username" #username="ngModel"
+                 [status]="!username.valid && loginForm.submitted ? 'danger' : 'default'">
+          <div *ngIf="loginForm.submitted && !username.valid" class="form-input-error-container">
+            <p class="form-input-error">Username is required!</p>
+          </div>
+        </div>
+
+        <div class="form-input-container">
+          <input class="form-input input-full-width" nbInput placeholder="password" type="password" id="password" name="password" required
+                 [(ngModel)]="loginData.password" #password="ngModel"
+                 [status]="!password.valid && loginForm.submitted ? 'danger' : 'default'">
+          <div *ngIf="loginForm.submitted && !password.valid" class="form-input-error-container">
+            <p class="form-input-error">Password is required!</p>
+          </div>
+        </div>
+
+        <button class="form-submit" nbButton status="primary" type="submit">Login</button>
+        <button class="form-submit login-facebook" nbButton status="primary" (click)="loginWithFacebook()">
+          Login with facebook
+        </button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</nb-layout-column>

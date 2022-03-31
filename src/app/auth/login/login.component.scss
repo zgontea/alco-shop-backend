@@ -1,0 +1,23 @@
+.login-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-card {
+    min-width: 400px;
+    width: 30%;
+    height: 50%;
+
+    .login-facebook::before {
+      content: url(https://img.icons8.com/material/24/000000/facebook-new.png);
+      margin-right: 5px;
+    }
+  }
+
+  .login-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+

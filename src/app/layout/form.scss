@@ -1,0 +1,29 @@
+.form-layout {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  .form-input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .form-input, .form-input-error-container {
+      width: 80%;
+    }
+
+
+    .form-input-error {
+      color: #ff0000;
+    }
+  }
+
+  .form-submit {
+    width: 60%;
+  }
+}

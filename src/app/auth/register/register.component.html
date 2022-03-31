@@ -1,0 +1,53 @@
+<nb-layout-column class="register-wrapper">
+  <nb-card class="register-card" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">
+    <nb-card-header class="register-header">
+      <h1>Register</h1>
+    </nb-card-header>
+    <nb-card-body class="register-container">
+      <nb-alert *ngIf="error" status="danger" class="error">
+        {{error}}
+      </nb-alert>
+      <form class="form-layout" [formGroup]="registerForm" (ngSubmit)="register()">
+
+        <div class="form-input-container">
+          <input class="form-input input-full-width" nbInput placeholder="email" type="email" formControlName="email"
+                 [(ngModel)]="model.email"
+                 [status]="submitted && registerForm.get('email')?.errors ? 'danger' : 'default'">
+          <div class="form-input-error-container">
+            <p *ngIf="submitted && registerForm.get('email')?.errors?.['required']" class="form-input-error">Email is required!</p>
+            <p *ngIf="submitted && registerForm.get('email')?.errors?.['email']" class="form-input-error">Enter a valid email</p>
+          </div>
+        </div>
+
+        <div class="form-input-container">
+          <input class="form-input input-full-width" nbInput placeholder="password" type="password" formControlName="password"
+                 [(ngModel)]="model.password"
+                 [status]="submitted && registerForm.get('password')?.errors ? 'danger' : 'default'">
+          <div class="form-input-error-container">
+            <p *ngIf="submitted && registerForm.get('password')?.errors?.['required']" class="form-input-error">Password is required!</p>
+          </div>
+        </div>
+
+        <div class="form-input-container">
+          <input class="form-input input-full-width" nbInput placeholder="first name" type="text" formControlName="firstName"
+                 [(ngModel)]="model.firstName"
+                 [status]="submitted && registerForm.get('firstName')?.errors ? 'danger' : 'default'">
+          <div class="form-input-error-container">
+            <p *ngIf="submitted && registerForm.get('firstName')?.errors?.['required']" class="form-input-error">First name is required!</p>
+          </div>
+        </div>
+
+        <div class="form-input-container">
+          <input class="form-input input-full-width" nbInput placeholder="last name" type="text" formControlName="lastName"
+                 [(ngModel)]="model.lastName"
+                 [status]="submitted && registerForm.get('lastName')?.errors ? 'danger' : 'default'">
+          <div class="form-input-error-container">
+            <p *ngIf="submitted && registerForm.get('lastName')?.errors?.['required']" class="form-input-error">Last name is required!</p>
+          </div>
+        </div>
+
+        <button nbButton class="form-submit" status="primary" type="submit">Register</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</nb-layout-column>
