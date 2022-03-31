@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan(basePackages = "com.example.demo.entities")
 @EnableJpaRepositories(basePackages = "com.example.demo.repositories")
 @EnableTransactionManagement
-@EnableAutoConfiguration
 
 public class DemoApplication {
     public static void main(String[] args) {

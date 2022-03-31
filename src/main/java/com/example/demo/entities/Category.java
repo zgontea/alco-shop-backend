@@ -11,33 +11,25 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.stereotype.Component;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
-@Component
 @Entity
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
-@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "categories")
-@Getter
-@Setter
+@Data
+@SuperBuilder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", unique = true, nullable = false)
     private Long id;
 
-    @NonNull
     @Column(name = "category_name", unique = true, nullable = false)
     private String categoryName;
 
-    @NonNull
     @Column(name = "description", nullable = true)
     private String description;
 
