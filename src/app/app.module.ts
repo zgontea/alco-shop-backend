@@ -25,11 +25,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatOptionModule } from '@angular/material/core';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
+    RegisterPageComponent,
     LoginPageComponent,
   ],
   imports: [

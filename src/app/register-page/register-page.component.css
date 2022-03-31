@@ -12,9 +12,9 @@
 mat-card {
     display: flex;
     flex-direction: column;
-    width: 33%;
+    width: 60%;
     height: auto;
-    min-height: 250px;
+    min-height: 350px;
     max-width: 500px;
     text-align: center;
 }
@@ -25,7 +25,7 @@ mat-card-content {
     flex-direction: column;
     justify-content: center;
 }
-  
+
 mat-form-field {
     width: 100%;
 }
