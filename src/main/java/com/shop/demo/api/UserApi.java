@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.Data;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserApi {
@@ -44,7 +46,13 @@ public class UserApi {
     }
 
     @PostMapping("/save")
-    public User add(@RequestBody User user) {
+    public User add(@RequestBody UserWrapper userWrapper) {
+        User user = new User();
+        user.setAdmin(false);
+        user.setEmail(userWrapper.email);
+        user.setName(userWrapper.name);
+        user.setSurname(userWrapper.surname);
+        user.setPassword(userWrapper.password);
         return userManager.save(user);
     }
 
@@ -56,5 +64,13 @@ public class UserApi {
     @DeleteMapping("/del")
     public void delete(@RequestParam Long index) {
         userManager.deleteById(index);
+    }
+
+    @Data
+    public static class UserWrapper {
+        private String name;
+        private String surname;
+        private String email;
+        private String password;
     }
 }

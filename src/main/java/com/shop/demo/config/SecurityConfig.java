@@ -1,31 +1,20 @@
 package com.shop.demo.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shop.demo.filter.JwtFilter;
 import com.shop.demo.repo.UserRepository;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -45,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						() -> new UsernameNotFoundException(
                                 String.format("User: %s, not found", username)
 						)
-				));
+				)).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Override
@@ -57,35 +46,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/webjars/**").permitAll()
 				.antMatchers("/swagger-resources/**").permitAll()
 
-				.antMatchers(HttpMethod.GET, "/api/users/id").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/users/").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/users/all").hasAnyRole("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/api/users/save").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/users/del").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/users/id").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/users/").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/users/save").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/api/users/del").permitAll()
 
 				.antMatchers(HttpMethod.GET, "/api/products/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/products/all").hasAnyRole("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/api/products/save").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/products/del").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/products/save").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/products/del").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/api/categories/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/categories/").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/categories/all").hasAnyRole("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/api/categories/save").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/categories/del").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/categories/all").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/categories/save").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/categories/del").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/api/orderDetails/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/orderDetails/").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/orderDetails/all").hasAnyRole("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/api/orderDetails/save").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/orderDetails/del").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/orderDetails/all").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/orderDetails/save").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/orderDetails/del").hasAuthority("ADMIN")
 
-				.antMatchers(HttpMethod.GET, "/api/orders/id").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/orders/").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/orders/id").hasAnyAuthority("USER", "ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/orders/").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers(HttpMethod.GET, "/api/orders/all").hasAnyRole("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/api/orders/save").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/orders/del").hasRole("ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/orders/save").hasAnyAuthority("USER", "ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/orders/del").hasAuthority("ADMIN")
+
+				.antMatchers(HttpMethod.POST, "/api/login/logIn").permitAll()
+
 				.and().addFilter(authenticationFilter())
 				.exceptionHandling()
 				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));

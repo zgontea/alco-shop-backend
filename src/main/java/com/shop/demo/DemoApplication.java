@@ -21,7 +21,7 @@ public class DemoApplication {
 		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>();
 		filterRegistrationBean.setFilter(new JwtFilter());
 
-		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/*"));
+		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/products/*"));
 
 		return filterRegistrationBean;
 	}

@@ -45,14 +45,11 @@ public class User implements UserDetails
     @Column(name = "is_admin", nullable = false)
     private boolean admin;
 
-    private boolean enabled = true;
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
         return this.isAdmin() ?
-                List.of(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN")) :
+                List.of(new SimpleGrantedAuthority("ADMIN")) :
                 List.of(new SimpleGrantedAuthority("USER"));
     }
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.impl.TextCodec;
 
 public class JwtFilter implements javax.servlet.Filter {
 
@@ -19,12 +20,6 @@ public class JwtFilter implements javax.servlet.Filter {
      *
      */
     private static final int tokenIndex = 7;
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -39,18 +34,11 @@ public class JwtFilter implements javax.servlet.Filter {
         } else {
             try {
                 String token = header.substring(tokenIndex);
-                Claims claims = Jwts.parser().parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode("12333")).parseClaimsJws(token).getBody();
                 request.setAttribute("claims", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid Token!");
             }
         }
     }
-
-    @Override
-    public void destroy() {
-        // TODO Auto-generated method stub
-
-    }
-
 }
