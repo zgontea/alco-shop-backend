@@ -1,17 +1,31 @@
 package com.shop.demo.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.shop.demo.filter.JwtFilter;
+import com.shop.demo.repo.UserRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -21,56 +35,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final ObjectMapper objectMapper;
 	private final RestAuthenticationSuccessHandler successHandler;
 	private final RestAuthenticationFailureHandler failureHandler;
-
-	// private final DataSource dataSource;
-
-	// private final UserDetailsService userDetailsService;
-
-	// private final UserRepository userRepository;
-
+	private final UserRepository userRepository;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("guest").password("{noop}guestPass").roles("GUEST").and()
-				.withUser("user").password("{noop}userPass").roles("USER").and().withUser("admin")
-				.password("{noop}adminPass").roles("ADMIN");
-		// //builder.jdbcAuthentication().dataSource(dataSource).withDefaultSchema().wit
-		//       auth
-        //         .userDetailsService(userDetailsService)
-        //         .passwordEncoder(new BCryptPasswordEncoder());
-			// try
-			// {
-			//    	auth.userDetailsService(username -> userRepository.findByEmail(username));
-
-			// }
-			// catch(UserExistsException e)
-			// {
-			// 	System.outprintln("User "+username+" was not found!\n");
-			// }
-		
+		auth.userDetailsService(username -> userRepository
+				.findByEmail(username)
+				.orElseThrow(
+						() -> new UsernameNotFoundException(
+                                String.format("User: %s, not found", username)
+						)
+				));
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		http = http.cors().and().csrf().disable();
 		http.httpBasic();
 		http.authorizeRequests()
 				.antMatchers("/swagger-ui/index.html#/").permitAll()
 				.antMatchers("/webjars/**").permitAll()
 				.antMatchers("/swagger-resources/**").permitAll()
-				
+
 				.antMatchers(HttpMethod.GET, "/api/users/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/users/").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/users/all").hasAnyRole("USER", "ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/users/save").hasRole("ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/api/users/del").hasRole("ADMIN")
-				
+
 				.antMatchers(HttpMethod.GET, "/api/products/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/all").hasAnyRole("USER", "ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/products/save").hasRole("ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/api/products/del").hasRole("ADMIN")
-				
+
 				.antMatchers(HttpMethod.GET, "/api/categories/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/categories/").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/categories/all").hasAnyRole("USER", "ADMIN")

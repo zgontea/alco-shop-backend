@@ -34,7 +34,7 @@ public class JwtFilter implements javax.servlet.Filter {
 
         String header = httpServletRequest.getHeader("authorization");
 
-        if (header == null || header.startsWith("Bearer ")) {
+        if (header == null || !header.startsWith("Bearer ")) {
             throw new ServletException("Missing or invalid Authorization header!\n");
         } else {
             try {
