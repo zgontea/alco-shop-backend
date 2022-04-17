@@ -1,71 +1,32 @@
 <mat-card>
   <mat-card-content>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #registerForm="ngForm" (ngSubmit)="registerUser()">
       <h1>Create new Account</h1>
-      <mat-error *ngIf="!loginValid">
-        The username and password were not recognized
-      </mat-error>
       <mat-form-field>
-        <input
-          matInput
-          placeholder="First Name"
-          [(ngModel)]="firstName"
-          name="firstName"
-          required
-        />
+        <input matInput placeholder="First Name" [(ngModel)]="user.firstName" id="firstName" name="firstName"
+          required />
         <mat-error> Please provide your first name </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          placeholder="Last Name"
-          [(ngModel)]="lastName"
-          name="lastName"
-          required
-        />
+        <input matInput placeholder="Last Name" [(ngModel)]="user.lastName" id="lastName" name="lastName" required />
         <mat-error> Please provide your last name </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          type="phone"
-          matInput
-          placeholder="Phone"
-          [(ngModel)]="phone"
-          name="phone"
-          required
-        />
+        <input type="phone" matInput placeholder="Phone" [(ngModel)]="user.phone" id="phone" name="phone" required />
         <mat-error> Please provide your phone number </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          placeholder="Email"
-          [(ngModel)]="username"
-          name="username"
-          required
-        />
+        <input matInput placeholder="Email" [(ngModel)]="user.email" id="username" name="username" required />
         <mat-error> Please provide a valid email address </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          type="password"
-          placeholder="Password"
-          [(ngModel)]="password"
-          name="password"
-          required
-        />
+        <input matInput type="password" placeholder="Password" [(ngModel)]="user.password" id="password" name="password"
+          required />
         <mat-error> Please provide a valid password </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input
-          matInput
-          type="password"
-          placeholder="Confirm Password"
-          [(ngModel)]="confirmPassword"
-          name="congirmPassword"
-          required
-        />
+        <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="user.cpassword" id="cpassword"
+          name="cpassword" required />
         <mat-error> Please provide a valid password </mat-error>
       </mat-form-field>
       <button class="button" mat-raised-button color="accent">Register</button>
