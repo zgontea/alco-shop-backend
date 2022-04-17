@@ -38,16 +38,16 @@ public class UserManager {
 		userRepository.deleteById(id);
 	}
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void runAtStart() {
-        User user = new User();
-        user.setAdmin(true);
-        user.setEmail("janekgontarek@gmail.com");
-        user.setName("Zbyszko");
-        user.setSurname("TrzyCytryny");
-        user.setPassword(new BCryptPasswordEncoder().encode("123"));
-
-        userRepository.save(user);
-    }
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void runAtStart() {
+//        User user = new User();
+//        user.setAdmin(true);
+//        user.setEmail("janekgontarek@gmail.com");
+//        user.setName("Zbyszko");
+//        user.setSurname("TrzyCytryny");
+//        user.setPassword(new BCryptPasswordEncoder().encode("123"));
+//
+//        userRepository.save(user);
+//    }
     
 }
