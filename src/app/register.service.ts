@@ -12,6 +12,6 @@ export class RegisterService {
 
   registerUser(user: User): Observable<Object> {
     console.log(user);
-    return this.httpClient.post('http://localhost:8080/user', user);
+    return this.httpClient.post('http://localhost:8080/api/users/save', user);
   }
 }
