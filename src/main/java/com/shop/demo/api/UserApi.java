@@ -44,6 +44,7 @@ public class UserApi {
         user.setAdmin(false);
         user.setEmail(userWrapper.email);
         user.setName(userWrapper.name);
+        user.setPhone(userWrapper.phone);
         user.setSurname(userWrapper.surname);
         user.setPassword(userWrapper.password);
         return userManager.save(user);
@@ -65,5 +66,6 @@ public class UserApi {
         private String surname;
         private String email;
         private String password;
+        private String phone;
     }
 }

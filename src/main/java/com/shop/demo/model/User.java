@@ -42,6 +42,9 @@ public class User implements UserDetails
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
     @Column(name = "is_admin", nullable = false)
     private boolean admin;
 
