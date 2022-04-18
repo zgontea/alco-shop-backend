@@ -27,6 +27,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MainViewComponent } from './main-view/main-view.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     NavigationComponent,
     RegisterPageComponent,
     LoginPageComponent,
+    MainViewComponent,
   ],
   imports: [
     MatIconModule,
