@@ -19,9 +19,6 @@ export class MainViewComponent implements OnInit {
   }
 
   public getProducts(): void {
-    this.productService.getProducts().subscribe({
-      complete: () => { (response: Product[]) => { this.products = response } },
-      error: () => { (error: HttpErrorResponse) => { alert(error.message) } }
-    });
+    this.productService.getProducts().subscribe(value => this.products = value);
   }
 }
