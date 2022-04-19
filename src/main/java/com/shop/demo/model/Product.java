@@ -38,7 +38,7 @@ public class Product {
     @Column(name = "unit_price", nullable = false)
     private BigDecimal unitPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+//    @ManyToOne
+//    @JoinColumn(name = "category_id", nullable = false)
+//    private Category category;
 }

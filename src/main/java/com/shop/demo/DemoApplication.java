@@ -28,52 +28,25 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context =  SpringApplication.run(DemoApplication.class, args);
-//		CategoryRepository repo = context
-//				.getBean(CategoryRepository.class);
-//		CategoryManager categoryManager = new CategoryManager(repo);
-//		ProductRepository repo2 = context
-//				.getBean(ProductRepository.class);
-//		ProductManager productManager = new ProductManager(repo2);
-//
-//		Category category = new Category();
-//		category.setCategoryName("Wódkil");
-//		category.setDescription("wódki czyste do 40%");
-//
-//		Product product = new Product();
-//		product.setImage("images/zubrowka.jpg");
-//		product.setUnitPrice(new BigDecimal("24.99"));
-//		product.setName("Żubrówka");
-//		product.setCategory(category);
-//		productManager.save(product);
-//
-//		Product product2 = new Product();
-//		product2.setImage("images/stock.jpg");
-//		product2.setUnitPrice(new BigDecimal("25.99"));
-//		product2.setName("Stock");
-//		product.setCategory(category);
-//		product2.setCategory(category);
+		CategoryRepository repo = context
+				.getBean(CategoryRepository.class);
+		CategoryManager categoryManager = new CategoryManager(repo);
 
-//		Set<Product> products = new HashSet<>();
-//		products.add(product);
-//		products.add(product2);
-//		category.setProducts(products);
-//		categoryManager.save(category);
-
-
-//		productManager.save(product2);
-//		productManager.save(product);
+		ProductRepository repo2 = context
+				.getBean(ProductRepository.class);
+		ProductManager productManager = new ProductManager(repo2);
 
 	}
 
-//	@Bean
-//	public FilterRegistrationBean filterRegistrationBean() {
-//		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>();
-//		filterRegistrationBean.setFilter(new JwtFilter());
-//
-//		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/orders/*"));
-//
-//		return filterRegistrationBean;
-//	}
+	@Bean
+	public FilterRegistrationBean filterRegistrationBean() {
+		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>();
+		filterRegistrationBean.setFilter(new JwtFilter());
+
+		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/orders/*"));
+
+		return filterRegistrationBean;
+	}
 
 //	@EventListener(ApplicationReadyEvent.class)
 //    public void runAtStart() {
