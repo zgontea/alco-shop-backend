@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 
-
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',

@@ -1,5 +1,10 @@
+import { DecimalPipe } from "@angular/common";
+
 export class Product {
     name!: string;
     image!: string;
-    unit_price!: number;
+    unitPrice!: number;
+    description!: string;
+    size!: number;
+    concentration!: number;
 }
