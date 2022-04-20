@@ -38,6 +38,15 @@ public class Product {
     @Column(name = "unit_price", nullable = false)
     private BigDecimal unitPrice;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Column(name = "size", nullable = false)
+    private Long size;
+
+    @Column(name = "concentration", nullable = false)
+    private Double concentration;
+
 //    @ManyToOne
 //    @JoinColumn(name = "category_id", nullable = false)
 //    private Category category;
