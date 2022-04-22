@@ -34,7 +34,7 @@ public class JwtFilter implements javax.servlet.Filter {
         } else {
             try {
                 String token = header.substring(tokenIndex);
-                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode("12333")).parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode("dupajasia")).parseClaimsJws(token).getBody();
                 request.setAttribute("claims", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid Token!");

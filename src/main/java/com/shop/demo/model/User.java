@@ -19,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-
 @Entity
 @Table(name = "users")
 @Data
@@ -27,8 +26,7 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 
-public class User implements UserDetails
-{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false)
@@ -49,11 +47,9 @@ public class User implements UserDetails
     private boolean admin;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
-        return this.isAdmin() ?
-                List.of(new SimpleGrantedAuthority("ADMIN")) :
-                List.of(new SimpleGrantedAuthority("USER"));
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.isAdmin() ? List.of(new SimpleGrantedAuthority("ADMIN"))
+                : List.of(new SimpleGrantedAuthority("USER"));
     }
 
     @Override

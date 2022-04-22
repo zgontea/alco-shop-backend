@@ -39,11 +39,11 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public FilterRegistrationBean filterRegistrationBean() {
-		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>();
+	public FilterRegistrationBean<JwtFilter> filterRegistrationBean() {
+		FilterRegistrationBean<JwtFilter> filterRegistrationBean = new FilterRegistrationBean<>();
 		filterRegistrationBean.setFilter(new JwtFilter());
 
-		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/orders/*"));
+		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/categories/*"));
 
 		return filterRegistrationBean;
 	}

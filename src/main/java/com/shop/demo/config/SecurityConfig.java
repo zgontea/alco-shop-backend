@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/api/users/id").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET, "/api/users/").hasAuthority("ADMIN")
-				.antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ADMIN")
+				// .antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/users/save").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/api/users/del").permitAll()
 
@@ -72,11 +73,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/api/orders/id").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers(HttpMethod.GET, "/api/orders/").hasAnyAuthority("USER", "ADMIN")
-				.antMatchers(HttpMethod.GET, "/api/orders/all").hasAnyRole("USER", "ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/orders/all").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/orders/save").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/api/orders/del").hasAuthority("ADMIN")
 
-				.antMatchers(HttpMethod.POST, "/api/login/logIn").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/login").permitAll()
 
 				.and().addFilter(authenticationFilter())
 				.exceptionHandling()
