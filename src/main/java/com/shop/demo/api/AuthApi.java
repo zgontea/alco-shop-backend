@@ -9,27 +9,29 @@ import com.shop.demo.model.User;
 import com.shop.demo.service.UserManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping("auth")
-public class AuthApi implements SecretHolder{
+public class AuthApi implements SecretHolder {
 
     private UserManager userManager;
 
     @Autowired
-	public AuthApi(UserManager userManager) {
-		super();
-		this.userManager = userManager;
-	}
+    public AuthApi(UserManager userManager) {
+        super();
+        this.userManager = userManager;
+    }
 
     @PostMapping("/login")
     public String login(@RequestBody UserCredencials user) {
@@ -38,21 +40,21 @@ public class AuthApi implements SecretHolder{
 
         Optional<User> userFromDatabase = userManager.findByEmail(user.getLogin());
 
-        if(userFromDatabase.isEmpty()) {
+        if (userFromDatabase.isEmpty()) {
             return "Invalid Email";
         }
 
-        if(!BCrypt.checkpw(user.getPassword(), userFromDatabase.get().getPassword())) {
+        if (!BCrypt.checkpw(user.getPassword(), userFromDatabase.get().getPassword())) {
             return "Invalid Password";
         }
 
         String token = Jwts.builder()
-            .setSubject(user.getLogin())
-            .claim("roles", "user")
-            .setIssuedAt(new Date(currentTimeMiliis))
-            .setExpiration(new Date(currentTimeMiliis + expirationTime))
-            .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.encode(jwtSecret))
-            .compact();
+                .setSubject(user.getLogin())
+                .claim("roles", "user")
+                .setIssuedAt(new Date(currentTimeMiliis))
+                .setExpiration(new Date(currentTimeMiliis + expirationTime))
+                .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.encode(jwtSecret))
+                .compact();
 
         return token;
     }

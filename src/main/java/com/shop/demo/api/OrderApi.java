@@ -6,7 +6,15 @@ import com.shop.demo.model.Order;
 import com.shop.demo.service.OrderManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -14,8 +22,8 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @CrossOrigin
 @RequestMapping("/api/orders")
 public class OrderApi {
-    
-    private OrderManager orderManager;
+
+	private OrderManager orderManager;
 
 	@Autowired
 	public OrderApi(OrderManager orderManager) {

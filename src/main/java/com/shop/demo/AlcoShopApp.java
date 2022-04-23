@@ -12,12 +12,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import java.util.Collections;
 
-
 @SpringBootApplication
-public class DemoApplication {
+public class AlcoShopApp {
 
 	public static void main(String[] args) {
-		ApplicationContext context =  SpringApplication.run(DemoApplication.class, args);
+		ApplicationContext context = SpringApplication.run(AlcoShopApp.class, args);
 		CategoryRepository repo = context
 				.getBean(CategoryRepository.class);
 		CategoryManager categoryManager = new CategoryManager(repo);
@@ -38,16 +37,16 @@ public class DemoApplication {
 		return filterRegistrationBean;
 	}
 
-//	@EventListener(ApplicationReadyEvent.class)
-//    public void runAtStart() {
-//        User user = new User();
-//        user.setAdmin(true);
-//        user.setEmail("janekgontarek@gmail.com");
-//        user.setName("Zbyszko");
-//        user.setSurname("TrzyCytryny");
-//        user.setPassword(new BCryptPasswordEncoder().encode("123"));
-//
-//        userRepository.save(user);
-//    }
+	// @EventListener(ApplicationReadyEvent.class)
+	// public void runAtStart() {
+	// User user = new User();
+	// user.setAdmin(true);
+	// user.setEmail("janekgontarek@gmail.com");
+	// user.setName("Zbyszko");
+	// user.setSurname("TrzyCytryny");
+	// user.setPassword(new BCryptPasswordEncoder().encode("123"));
+	//
+	// userRepository.save(user);
+	// }
 
 }
