@@ -3,7 +3,6 @@ package com.shop.demo.filter;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -13,8 +12,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.impl.TextCodec;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class JwtFilter implements javax.servlet.Filter {
+@Component
+@RequiredArgsConstructor
+public class JwtFilter implements javax.servlet.Filter, SecretHolder {
 
     /**
      *
@@ -34,11 +39,12 @@ public class JwtFilter implements javax.servlet.Filter {
         } else {
             try {
                 String token = header.substring(tokenIndex);
-                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode("dupajasia")).parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode(jwtSecret)).parseClaimsJws(token).getBody();
                 request.setAttribute("claims", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid Token!");
             }
         }
+        chain.doFilter(request, response);
     }
 }

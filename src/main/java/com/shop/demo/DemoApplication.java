@@ -1,26 +1,16 @@
 package com.shop.demo;
 
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import com.shop.demo.filter.JwtFilter;
-
-import com.shop.demo.model.Category;
-import com.shop.demo.model.Product;
 import com.shop.demo.repo.CategoryRepository;
 import com.shop.demo.repo.ProductRepository;
 import com.shop.demo.service.CategoryManager;
 import com.shop.demo.service.ProductManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
+import java.util.Collections;
 
 
 @SpringBootApplication
