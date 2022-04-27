@@ -3,6 +3,7 @@ package com.shop.demo.api;
 import java.util.Optional;
 
 import com.shop.demo.model.Category;
+import com.shop.demo.model.Product;
 import com.shop.demo.service.CategoryManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class CategoryApi {
     @GetMapping(value = "/{categoryId}")
     public Optional<Category> getId(@PathVariable("categoryId") Long employeeId) {
         return categoryManager.findById(employeeId);
+    }
+
+    @GetMapping("/categoryName")
+    public Iterable<Product> getProductsByCategoryName(@RequestParam String categoryName) {
+        return categoryManager.findProductsByCategoryName(categoryName);
     }
 
     @PostMapping("/save")

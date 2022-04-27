@@ -44,17 +44,17 @@ public class UserManager {
 		userRepository.deleteById(id);
 	}
 
-	// @EventListener(ApplicationReadyEvent.class)
-	// public void runAtStart() {
-	// 	User user = new User();
-	// 	user.setAdmin(true);
-	// 	user.setEmail("janekgontarek@gmail.com");
-	// 	user.setName("Zbyszko");
-	// 	user.setSurname("TrzyCytryny");
-	// 	user.setPhone("793130773");
-	// 	user.setPassword(BCrypt.hashpw("123", salt));
-
-	// 	userRepository.save(user);
-	// }
+//	@EventListener(ApplicationReadyEvent.class)
+//	public void runAtStart() {
+//		User user = new User();
+//		user.setAdmin(true);
+//		user.setEmail("janekgontarek@gmail.com");
+//		user.setName("Zbyszko");
+//		user.setSurname("TrzyCytryny");
+//		user.setPhone("793130773");
+//		user.setPassword(BCrypt.hashpw("123", salt));
+//
+//		userRepository.save(user);
+//	}
 
 }
