@@ -1,6 +1,8 @@
 package com.shop.demo.api;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import com.shop.demo.config.UserCredencials;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
+import io.swagger.v3.core.util.Json;
+import nonapi.io.github.classgraph.json.JSONSerializer;
 
 @RestController
 @CrossOrigin
@@ -56,6 +60,9 @@ public class AuthApi implements SecretHolder {
                 .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.encode(jwtSecret))
                 .compact();
 
-        return token;
+        Map<String, String> response = new HashMap<>();
+        response.put("access_token", token);
+
+        return JSONSerializer.serializeObject(response);
     }
 }

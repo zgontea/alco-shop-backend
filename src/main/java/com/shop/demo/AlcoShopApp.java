@@ -32,7 +32,7 @@ public class AlcoShopApp {
 		FilterRegistrationBean<JwtFilter> filterRegistrationBean = new FilterRegistrationBean<>();
 		filterRegistrationBean.setFilter(new JwtFilter());
 
-		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/orderDetails/*"));
+		filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/products/*"));
 
 		return filterRegistrationBean;
 	}
