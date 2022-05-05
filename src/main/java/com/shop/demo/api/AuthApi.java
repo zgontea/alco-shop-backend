@@ -83,8 +83,9 @@ public class AuthApi implements SecretHolder {
         User user = User.builder()
                 .email(registerCredentials.getEmail())
                 .password(passwordEncoder.encode(registerCredentials.getPassword()))
-                .name(registerCredentials.getFirstName())
-                .surname(registerCredentials.getLastName())
+                .name(registerCredentials.getName())
+                .surname(registerCredentials.getSurname())
+                .phone(registerCredentials.getPhone())
                 .admin(false)
                 .build();
 

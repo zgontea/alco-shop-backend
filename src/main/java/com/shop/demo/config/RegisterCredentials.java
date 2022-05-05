@@ -8,13 +8,16 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class RegisterCredentials
 {
+    @NotBlank
+    private final String name;
+    @NotBlank
+    private final String surname;
+    @NotBlank
+    private final String phone;
     @Email
     @NotBlank
     private final String email;
     @NotBlank
     private final String password;
-    @NotBlank
-    private final String firstName;
-    @NotBlank
-    private final String lastName;
+
 }
