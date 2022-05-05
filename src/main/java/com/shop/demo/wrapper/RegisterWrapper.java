@@ -1,4 +1,4 @@
-package com.shop.demo.config;
+package com.shop.demo.wrapper;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class RegisterCredentials
+public class RegisterWrapper
 {
     @NotBlank
     private final String name;

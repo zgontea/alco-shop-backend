@@ -23,7 +23,7 @@ public class AlcoShopApp {
 
 		ProductRepository repo2 = context
 				.getBean(ProductRepository.class);
-		ProductManager productManager = new ProductManager(repo2);
+		ProductManager productManager = new ProductManager(repo2, repo);
 
 	}
 

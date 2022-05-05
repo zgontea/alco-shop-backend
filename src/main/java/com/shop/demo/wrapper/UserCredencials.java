@@ -1,4 +1,4 @@
-package com.shop.demo.config;
+package com.shop.demo.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

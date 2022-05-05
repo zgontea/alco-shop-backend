@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.shop.demo.config.RegisterCredentials;
-import com.shop.demo.config.UserCredencials;
+import com.shop.demo.wrapper.RegisterWrapper;
+import com.shop.demo.wrapper.UserCredencials;
 import com.shop.demo.exception.UserExistsException;
 import com.shop.demo.filter.SecretHolder;
 import com.shop.demo.model.User;
-import com.shop.demo.repo.UserRepository;
 import com.shop.demo.service.UserManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class AuthApi implements SecretHolder {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterCredentials registerCredentials)
+    public ResponseEntity<Void> register(@RequestBody RegisterWrapper registerCredentials)
     {
         Optional<User> existingUser = userManager.findByEmail(registerCredentials.getEmail());
         if (existingUser.isPresent()) {
