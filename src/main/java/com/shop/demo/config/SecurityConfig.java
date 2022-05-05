@@ -79,6 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.DELETE, "/api/orders/del").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
 				.and().addFilter(authenticationFilter())
 				.exceptionHandling()

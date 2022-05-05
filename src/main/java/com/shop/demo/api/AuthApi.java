@@ -5,13 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.shop.demo.config.RegisterCredentials;
 import com.shop.demo.config.UserCredencials;
+import com.shop.demo.exception.UserExistsException;
 import com.shop.demo.filter.SecretHolder;
 import com.shop.demo.model.User;
+import com.shop.demo.repo.UserRepository;
 import com.shop.demo.service.UserManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
-import io.swagger.v3.core.util.Json;
 import nonapi.io.github.classgraph.json.JSONSerializer;
 
 @RestController
@@ -64,5 +69,26 @@ public class AuthApi implements SecretHolder {
         response.put("access_token", token);
 
         return JSONSerializer.serializeObject(response);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> register(@RequestBody RegisterCredentials registerCredentials)
+    {
+        Optional<User> existingUser = userManager.findByEmail(registerCredentials.getEmail());
+        if (existingUser.isPresent()) {
+            throw new UserExistsException();
+        }
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        User user = User.builder()
+                .email(registerCredentials.getEmail())
+                .password(passwordEncoder.encode(registerCredentials.getPassword()))
+                .name(registerCredentials.getFirstName())
+                .surname(registerCredentials.getLastName())
+                .admin(false)
+                .build();
+
+        userManager.save(user);
+        return ResponseEntity.ok().build();
     }
 }
