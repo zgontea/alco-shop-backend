@@ -52,12 +52,4 @@ public class CategoryApi {
     public Category add(@RequestBody Category category) {
         return categoryManager.save(category);
     }
-
-    @PostMapping("")
-    public Category add(CategoryWrapper categoryWrapper)
-    {
-        return this.categoryManager.save(Category.builder()
-                .categoryName(categoryWrapper.getCategoryName())
-                .build());
-    }
 }
