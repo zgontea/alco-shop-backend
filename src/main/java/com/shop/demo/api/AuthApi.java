@@ -65,6 +65,8 @@ public class AuthApi implements SecretHolder {
                 .compact();
 
         Map<String, String> response = new HashMap<>();
+        response.put("name", userFromDatabase.get().getName());
+        response.put("surname", userFromDatabase.get().getSurname());
         response.put("access_token", token);
 
         return JSONSerializer.serializeObject(response);
