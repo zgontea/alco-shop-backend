@@ -68,6 +68,7 @@ public class AuthApi implements SecretHolder {
         response.put("name", userFromDatabase.get().getName());
         response.put("surname", userFromDatabase.get().getSurname());
         response.put("access_token", token);
+        response.put("is_admin", String.valueOf((userFromDatabase.get().isAdmin())));
 
         return JSONSerializer.serializeObject(response);
     }
