@@ -2,21 +2,21 @@ package com.shop.demo.api;
 
 import com.shop.demo.wrapper.ImageWrapper;
 import lombok.val;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Base64;
 
+@RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ImageApi
 {
     @GetMapping("/images/{name}")
-    public ImageWrapper getImage(@PathVariable String imageName) {
-        File file = new File("./images" + "/" + imageName);
+    public ImageWrapper getImage(@PathVariable String name) {
+        File file = new File("./images/" + name);
 
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
             byte[] bytes = new byte[(int) file.length()];
