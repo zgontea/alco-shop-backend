@@ -42,10 +42,10 @@ public class Product {
     private String description;
 
     @Column(name = "size", nullable = false)
-    private Long size;
+    private BigDecimal size;
 
     @Column(name = "concentration", nullable = false)
-    private Double concentration;
+    private BigDecimal concentration;
 
 //    @ManyToOne
 //    @JoinColumn(name = "category_id", nullable = false)

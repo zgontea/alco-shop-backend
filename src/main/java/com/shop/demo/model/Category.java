@@ -25,7 +25,7 @@ public class Category {
     @Column(name = "category_name", unique = true, nullable = false)
     private String categoryName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", nullable = false)
     private Set<Product> products;
 

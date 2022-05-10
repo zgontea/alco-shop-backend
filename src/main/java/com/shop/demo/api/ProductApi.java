@@ -61,10 +61,11 @@ public class ProductApi {
 		productManager.deleteById(index);
 	}
 
-	@PostMapping
+	@PostMapping("/add")
 	public Product addProduct(@RequestBody ProductWrapper productWrapper)
 	{
-		Category category = categoryManager.findById(productWrapper.getCategoryId())
+		System.out.println(productWrapper.getCategoryName());
+		Category category = categoryManager.findByName(productWrapper.getCategoryName())
 				.orElseThrow(IllegalArgumentException::new);
 
 		String image = saveImage(productWrapper.getImage());
@@ -72,6 +73,9 @@ public class ProductApi {
 				.name(productWrapper.getName())
 				.unitPrice(productWrapper.getUnitPrice())
 				.image(image)
+				.concentration(productWrapper.getConcentration())
+				.size(productWrapper.getSize())
+				.description(productWrapper.getDescription())
 				.build();
 		category.getProducts().add(product);
 		return productManager.save(product);

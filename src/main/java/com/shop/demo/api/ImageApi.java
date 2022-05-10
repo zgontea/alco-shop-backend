@@ -13,13 +13,13 @@ import java.util.Base64;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class ImageApi
-{
+public class ImageApi {
     @GetMapping(value = "/images/{name}")
+    @CrossOrigin(origins = { "http://25.50.55.41:4200", "http://localhost:4200" })
     public ImageWrapper getImage(@PathVariable String name) {
         File file = new File("./images/" + name);
 
-        try(FileInputStream fileInputStream = new FileInputStream(file)) {
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
             byte[] bytes = new byte[(int) file.length()];
             fileInputStream.read(bytes);
             String encodedImage = Base64.getEncoder().encodeToString(bytes);

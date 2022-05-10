@@ -14,9 +14,17 @@ public class ProductWrapper
     private final String name;
     @NotBlank
     private final String image;
+    @NotBlank
+    private final String description;
     @NotNull
     @Min(0)
     private final BigDecimal unitPrice;
     @NotNull
-    private final Long categoryId;
+    @Min(0)
+    private final BigDecimal concentration;
+    @NotNull
+    @Min(0)
+    private final BigDecimal size;
+    @NotNull
+    private final String categoryName;
 }
