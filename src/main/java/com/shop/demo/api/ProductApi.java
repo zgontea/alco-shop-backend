@@ -51,9 +51,9 @@ public class ProductApi {
 		return productManager.save(product);
 	}
 
-	@DeleteMapping("/del")
-	public void delete(@RequestParam Long index) {
-		productManager.deleteById(index);
+	@DeleteMapping(value = "/del/{productId}")
+	public void delete(@PathVariable("productId") Long productId) {
+		productManager.deleteById(productId);
 	}
 
 	@PostMapping("/add")

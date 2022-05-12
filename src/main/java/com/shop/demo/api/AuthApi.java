@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.shop.demo.wrapper.RegisterWrapper;
+import com.shop.demo.wrapper.UserWrapper;
 import com.shop.demo.wrapper.UserCredencials;
 import com.shop.demo.exception.UserExistsException;
 import com.shop.demo.filter.SecretHolder;
@@ -74,7 +74,7 @@ public class AuthApi implements SecretHolder {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterWrapper registerCredentials)
+    public ResponseEntity<Void> register(@RequestBody UserWrapper registerCredentials)
     {
         Optional<User> existingUser = userManager.findByEmail(registerCredentials.getEmail());
         if (existingUser.isPresent()) {

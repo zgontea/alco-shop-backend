@@ -6,8 +6,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class RegisterWrapper
-{
+public class UserWrapper {
+    @NotBlank
+    private final Long id;
     @NotBlank
     private final String name;
     @NotBlank

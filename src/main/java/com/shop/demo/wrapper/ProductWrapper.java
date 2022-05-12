@@ -8,8 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
-public class ProductWrapper
-{
+public class ProductWrapper {
+    @NotBlank
+    private final Long id;
     @NotBlank
     private final String name;
     @NotBlank

@@ -55,10 +55,10 @@ public class UserApi {
         return userManager.save(user);
     }
 
-    @DeleteMapping("/del")
-    public void delete(@RequestParam Long index) {
-        userManager.deleteById(index);
-    }
+    @DeleteMapping(value = "/del/{userId}")
+	public void delete(@PathVariable("userId") Long userId) {
+		userManager.deleteById(userId);
+	}
 
     @Data
     public static class UserWrapper {

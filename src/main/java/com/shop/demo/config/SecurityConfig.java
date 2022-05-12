@@ -51,12 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/users/save").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/api/users/del").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/users/del/").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/api/products/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/products/save").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/api/products/del").hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/products/del/").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/api/categories/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/categories/").permitAll()
