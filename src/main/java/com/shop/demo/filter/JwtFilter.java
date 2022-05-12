@@ -13,8 +13,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.impl.TextCodec;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,8 +41,11 @@ public class JwtFilter implements javax.servlet.Filter, SecretHolder {
                 request.setAttribute("claims", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid Token!");
+            } catch (Exception e) {
+                throw new ServletException("Token is empty!");
             }
         }
+
         chain.doFilter(request, response);
     }
 }

@@ -6,17 +6,14 @@ import com.shop.demo.model.User;
 import com.shop.demo.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserManager {
 
 	private final UserRepository userRepository;
-	private final static String salt = BCrypt.gensalt();
+	// private final static String salt = BCrypt.gensalt();
 
 	@Autowired
 	public UserManager(UserRepository userRepository) {

@@ -48,10 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/api/users/id").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET, "/api/users/").hasAuthority("ADMIN")
-				// .antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ADMIN")
-				.antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/users/save").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/api/users/del").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/api/users/del").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/api/products/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/").permitAll()
@@ -63,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/api/categories/").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/categories/all").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/categories/categoryName").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/categories/save").permitAll()//hasAuthority("ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/categories/save").hasAuthority("ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/api/categories/del").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.GET, "/api/orderDetails/id").permitAll()
@@ -75,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/api/orders/id").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers(HttpMethod.GET, "/api/orders/").hasAnyAuthority("USER", "ADMIN")
 				.antMatchers(HttpMethod.GET, "/api/orders/all").hasAnyAuthority("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/api/orders/save").hasAnyAuthority("USER", "ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/orders/save").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/api/orders/del").hasAuthority("ADMIN")
 
 				.antMatchers(HttpMethod.POST, "/auth/login").permitAll()

@@ -33,9 +33,9 @@ public class UserApi {
         return userManager.findById(index);
     }
 
-    @GetMapping(value = "/{userId}")
-    public Optional<User> getId(@PathVariable("userId") Long userId) {
-        return userManager.findById(userId);
+    @GetMapping("/email")
+    public Optional<User> getByEmail(@RequestParam String email) {
+        return userManager.findByEmail(email);
     }
 
     @PostMapping("/save")

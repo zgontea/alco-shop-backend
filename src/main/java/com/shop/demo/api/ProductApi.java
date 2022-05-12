@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/products")
 public class ProductApi {
 
-    private final ProductManager productManager;
+	private final ProductManager productManager;
 	private final CategoryManager categoryManager;
 
 	@Autowired
@@ -46,11 +46,6 @@ public class ProductApi {
 		return productManager.findById(productId);
 	}
 
-	@PostMapping("/save")
-	public Product add(@RequestBody Product product) {
-		return productManager.save(product);
-	}
-
 	@PutMapping("/upd")
 	public Product update(@RequestBody Product product) {
 		return productManager.save(product);
@@ -62,8 +57,7 @@ public class ProductApi {
 	}
 
 	@PostMapping("/add")
-	public Product addProduct(@RequestBody ProductWrapper productWrapper)
-	{
+	public Product addProduct(@RequestBody ProductWrapper productWrapper) {
 		System.out.println(productWrapper.getCategoryName());
 		Category category = categoryManager.findByName(productWrapper.getCategoryName())
 				.orElseThrow(IllegalArgumentException::new);
@@ -81,29 +75,26 @@ public class ProductApi {
 		return productManager.save(product);
 	}
 
-	private String saveImage(String imageValue)
-	{
-		try
-		{
+	private String saveImage(String imageValue) {
+		try {
 			String base64Image = imageValue.split(",")[1];
 			byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 			Path root = Path.of("./images");
 			createDirIfNotExists(root);
 
 			String filename = UUID.randomUUID() + ".jpg";
-			new FileOutputStream(root.resolve(filename).toString()).write(imageBytes);
+			FileOutputStream fileOutputStream = new FileOutputStream(root.resolve(filename).toString());
+			fileOutputStream.write(imageBytes);
+			fileOutputStream.close();
+
 			return filename;
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			throw new IllegalStateException("Failed to save image");
 		}
 	}
 
-	private void createDirIfNotExists(Path path)
-	{
-		if (!path.toFile().exists())
-		{
+	private void createDirIfNotExists(Path path) {
+		if (!path.toFile().exists()) {
 			path.toFile().mkdirs();
 		}
 	}

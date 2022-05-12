@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductManager {
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
+    // private final CategoryRepository categoryRepository;
 
     @Autowired
     public ProductManager(ProductRepository productRepository, CategoryRepository categoryRepository) {
         super();
         this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
+        // this.categoryRepository = categoryRepository;
     }
 
     public Optional<Product> findById(Long id) {
