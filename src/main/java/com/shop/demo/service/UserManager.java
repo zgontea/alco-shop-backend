@@ -7,13 +7,16 @@ import com.shop.demo.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserManager {
 
 	private final UserRepository userRepository;
-	// private final static String salt = BCrypt.gensalt();
+//	private final static String salt = BCrypt.gensalt();
 
 	@Autowired
 	public UserManager(UserRepository userRepository) {
@@ -45,9 +48,9 @@ public class UserManager {
 //	public void runAtStart() {
 //		User user = new User();
 //		user.setAdmin(true);
-//		user.setEmail("janekgontarek@gmail.com");
-//		user.setName("Zbyszko");
-//		user.setSurname("TrzyCytryny");
+//		user.setEmail("eryk@admin.com");
+//		user.setName("Eryk");
+//		user.setSurname("Admin");
 //		user.setPhone("793130773");
 //		user.setPassword(BCrypt.hashpw("123", salt));
 //
