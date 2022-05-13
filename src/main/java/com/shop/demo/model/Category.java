@@ -22,7 +22,7 @@ public class Category {
     @Column(name = "category_id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "category_name", unique = true, nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String categoryName;
 
     @OneToMany(cascade = CascadeType.MERGE)

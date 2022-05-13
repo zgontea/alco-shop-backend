@@ -32,9 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.findByEmail(username)
 				.orElseThrow(
 						() -> new UsernameNotFoundException(
-                                String.format("User: %s, not found", username)
-						)
-				)).passwordEncoder(new BCryptPasswordEncoder());
+								String.format("User: %s, not found", username))))
+				.passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Override
