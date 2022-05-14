@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import com.shop.demo.model.Product;
 import com.shop.demo.service.CategoryManager;
 import com.shop.demo.service.ProductManager;
 
+import com.shop.demo.wrapper.ProductPageWrapper;
 import com.shop.demo.wrapper.ProductWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,17 @@ public class ProductApi {
 		this.categoryManager = categoryManager;
 	}
 
+	@GetMapping("/pages/{pageNumber}")
+	public ProductPageWrapper getProductPage(@PathVariable(value = "pageNumber") int pageNumber) {
+		return productManager.getProductPage(pageNumber);
+	}
+
+	@GetMapping
+	public List<Product> findAllProducts() {
+		return productManager.getProduct(0);
+	}
 	@GetMapping("/all")
+
 	public Iterable<Product> getAll() {
 		return productManager.findAll();
 	}
