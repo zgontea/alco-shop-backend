@@ -1,17 +1,21 @@
 package com.shop.demo.config;
 
+import javax.annotation.Resource;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.demo.repo.UserRepository;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 import lombok.RequiredArgsConstructor;
@@ -26,20 +30,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final RestAuthenticationFailureHandler failureHandler;
 	private final UserRepository userRepository;
 
+	@Resource
+	private CustomUserDetailsService userDetailsService;
+
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(username -> userRepository
-				.findByEmail(username)
-				.orElseThrow(
-						() -> new UsernameNotFoundException(
-								String.format("User: %s, not found", username))))
-				.passwordEncoder(new BCryptPasswordEncoder());
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authProvider());
 	}
+
+	@Bean
+	public DaoAuthenticationProvider authProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setPasswordEncoder(passwordEncoder());
+		return authProvider;
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	// @Override
+	// protected void configure(AuthenticationManagerBuilder auth) throws Exception
+	// {
+	// auth.userDetailsService(username -> userRepository
+	// .findByEmail(username)
+	// .orElseThrow(
+	// () -> new UsernameNotFoundException(
+	// String.format("User: %s, not found", username))))
+	// .passwordEncoder(new BCryptPasswordEncoder());
+	// }
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http = http.cors().and().csrf().disable();
 		http.httpBasic();
+		http.userDetailsService(userDetailsService);
 		http.authorizeRequests()
 				.antMatchers("/swagger-ui/index.html#/").permitAll()
 				.antMatchers("/webjars/**").permitAll()
@@ -47,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/api/users/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/users/").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/users/all").hasAuthority("ROLE_ADMIN")
 				.antMatchers(HttpMethod.POST, "/api/users/save").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/api/users/del").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/api/users/del/").permitAll()
@@ -93,6 +120,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().addFilter(authenticationFilter())
 				.exceptionHandling()
 				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+
+		http.authorizeRequests().anyRequest().authenticated();
 	}
 
 	public AuthenticationFilter authenticationFilter() throws Exception {

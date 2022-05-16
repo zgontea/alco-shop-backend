@@ -9,6 +9,8 @@ import com.shop.demo.wrapper.UserWrapper;
 import com.shop.demo.wrapper.UserCredencials;
 import com.shop.demo.exception.UserExistsException;
 import com.shop.demo.filter.SecretHolder;
+import com.shop.demo.model.Product;
+import com.shop.demo.model.ShoppingCart;
 import com.shop.demo.model.User;
 import com.shop.demo.service.UserManager;
 
@@ -46,29 +48,35 @@ public class AuthApi implements SecretHolder {
         long currentTimeMiliis = System.currentTimeMillis();
         long expirationTime = 1000 * 60 * 30;
 
-        Optional<User> userFromDatabase = userManager.findByEmail(user.getLogin());
+        User userFromDatabase = userManager.findByEmail(user.getLogin());
 
-        if (userFromDatabase.isEmpty()) {
+        if (userFromDatabase == null) {
             return "Invalid Email";
         }
 
-        if (!BCrypt.checkpw(user.getPassword(), userFromDatabase.get().getPassword())) {
+        if (!BCrypt.checkpw(user.getPassword(), userFromDatabase.getPassword())) {
             return "Invalid Password";
+        }
+
+        String role = "USER";
+        if(userFromDatabase.isAdmin()) {
+            role = "ADMIN";
         }
 
         String token = Jwts.builder()
                 .setSubject(user.getLogin())
-                .claim("roles", "user")
+                .claim("ROLE", role)
                 .setIssuedAt(new Date(currentTimeMiliis))
                 .setExpiration(new Date(currentTimeMiliis + expirationTime))
                 .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.encode(jwtSecret))
                 .compact();
 
         Map<String, String> response = new HashMap<>();
-        response.put("name", userFromDatabase.get().getName());
-        response.put("surname", userFromDatabase.get().getSurname());
+        response.put("name", userFromDatabase.getName());
+        response.put("surname", userFromDatabase.getSurname());
         response.put("access_token", token);
-        response.put("is_admin", String.valueOf(userFromDatabase.get().isAdmin()));
+        response.put("is_admin", String.valueOf(userFromDatabase.isAdmin()));
+        response.put("email", userFromDatabase.getEmail());
 
         return JSONSerializer.serializeObject(response);
     }
@@ -76,12 +84,12 @@ public class AuthApi implements SecretHolder {
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody UserWrapper registerCredentials)
     {
-        Optional<User> existingUser = userManager.findByEmail(registerCredentials.getEmail());
-        if (existingUser.isPresent()) {
+        User existingUser = userManager.findByEmail(registerCredentials.getEmail());
+        if (existingUser != null) {
             throw new UserExistsException();
         }
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = User.builder()
                 .email(registerCredentials.getEmail())
                 .password(passwordEncoder.encode(registerCredentials.getPassword()))
@@ -89,6 +97,7 @@ public class AuthApi implements SecretHolder {
                 .surname(registerCredentials.getSurname())
                 .phone(registerCredentials.getPhone())
                 .admin(false)
+                .shoppingCart(new ShoppingCart())
                 .build();
 
         userManager.save(user);

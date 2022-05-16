@@ -33,8 +33,8 @@ public class UserApi {
         return userManager.findById(index);
     }
 
-    @GetMapping("/email")
-    public Optional<User> getByEmail(@RequestParam String email) {
+    @GetMapping("/email/{email}")
+    public User getByEmail(@PathVariable String email) {
         return userManager.findByEmail(email);
     }
 

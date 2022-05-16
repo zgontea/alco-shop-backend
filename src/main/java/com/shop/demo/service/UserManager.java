@@ -24,7 +24,7 @@ public class UserManager {
 		this.userRepository = userRepository;
 	}
 
-	public Optional<User> findByEmail(String email) {
+	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 

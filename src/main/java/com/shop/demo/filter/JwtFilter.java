@@ -40,8 +40,9 @@ public class JwtFilter implements javax.servlet.Filter, SecretHolder {
         } else {
             try {
                 String token = header.substring(tokenIndex);
-                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode(jwtSecret)).parseClaimsJws(token).getBody();
-                request.setAttribute("claims", claims);
+                Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.encode(jwtSecret)).parseClaimsJws(token)
+                        .getBody();
+                request.setAttribute("CLAIMS", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid Token!");
             } catch (Exception e) {
