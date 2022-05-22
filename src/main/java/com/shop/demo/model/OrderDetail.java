@@ -25,6 +25,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 
 public class OrderDetail {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_detail_id", unique = true, nullable = false)

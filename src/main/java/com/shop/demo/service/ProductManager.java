@@ -4,34 +4,28 @@ import java.util.List;
 import java.util.Optional;
 
 import com.shop.demo.model.Product;
-import com.shop.demo.repo.CategoryRepository;
 import com.shop.demo.repo.ProductRepository;
-
 import com.shop.demo.wrapper.ProductPageWrapper;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+
 @Service
 @RequiredArgsConstructor
 public class ProductManager {
-    private final ProductRepository productRepository;
+    
+    @Autowired
+    private ProductRepository productRepository;
     // private final CategoryRepository categoryRepository;
 
-    @Autowired
-    public ProductManager(ProductRepository productRepository, CategoryRepository categoryRepository) {
-        super();
-        this.productRepository = productRepository;
-        // this.categoryRepository = categoryRepository;
-    }
-    public List<Product> getProduct(int page)
-    {
+    public List<Product> getProduct(int page) {
         Page<Product> page1 = productRepository.findAll(
-                PageRequest.of(page, 8
-                ));
+                PageRequest.of(page, 8));
 
         return page1.getContent();
     }

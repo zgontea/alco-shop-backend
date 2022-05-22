@@ -1,6 +1,5 @@
 package com.shop.demo.model;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,19 +25,17 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @SuperBuilder
-public class ShoppingCart
-{
+public class ShoppingCart {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shopping_cart_id", unique = true, nullable = false)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_cart_id", nullable = true)
     private List<Product> products;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", unique = true, nullable = false)
+    @OneToOne(mappedBy = "shoppingCart")
     private User user;
-
 }

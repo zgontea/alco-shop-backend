@@ -12,26 +12,32 @@ import com.shop.demo.model.Category;
 import com.shop.demo.model.Product;
 import com.shop.demo.service.CategoryManager;
 import com.shop.demo.service.ProductManager;
-
 import com.shop.demo.wrapper.ProductPageWrapper;
 import com.shop.demo.wrapper.ProductWrapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/products")
 public class ProductApi {
 
-	private final ProductManager productManager;
-	private final CategoryManager categoryManager;
+	@Autowired
+	private ProductManager productManager;
 
 	@Autowired
-	public ProductApi(ProductManager productManager, CategoryManager categoryManager) {
-		super();
-		this.productManager = productManager;
-		this.categoryManager = categoryManager;
-	}
+	private CategoryManager categoryManager;
 
 	@GetMapping("/pages/{pageNumber}")
 	public ProductPageWrapper getProductPage(@PathVariable(value = "pageNumber") int pageNumber) {
@@ -42,8 +48,8 @@ public class ProductApi {
 	public List<Product> findAllProducts() {
 		return productManager.getProduct(0);
 	}
-	@GetMapping("/all")
 
+	@GetMapping("/all")
 	public Iterable<Product> getAll() {
 		return productManager.findAll();
 	}
@@ -58,16 +64,19 @@ public class ProductApi {
 		return productManager.findById(productId);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/upd")
 	public Product update(@RequestBody Product product) {
 		return productManager.save(product);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping(value = "/del/{productId}")
 	public void delete(@PathVariable("productId") Long productId) {
 		productManager.deleteById(productId);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/add")
 	public Product addProduct(@RequestBody ProductWrapper productWrapper) {
 		System.out.println(productWrapper.getCategoryName());

@@ -7,6 +7,7 @@ import com.shop.demo.model.Product;
 import com.shop.demo.service.CategoryManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,13 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequestMapping("/api/categories")
 public class CategoryApi {
-    private CategoryManager categoryManager;
 
     @Autowired
-    public CategoryApi(CategoryManager categoryManager) {
-        super();
-        this.categoryManager = categoryManager;
-    }
+    private CategoryManager categoryManager;
 
     @GetMapping("/all")
     public Iterable<Category> getAll() {
@@ -48,6 +45,7 @@ public class CategoryApi {
         return categoryManager.findProductsByCategoryName(categoryName);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/save")
     public Category add(@RequestBody Category category) {
         return categoryManager.save(category);

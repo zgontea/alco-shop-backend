@@ -12,13 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryManager {
 
-    private final CategoryRepository categoryRepository;
-
     @Autowired
-    public CategoryManager(CategoryRepository categoryRepository) {
-        super();
-        this.categoryRepository = categoryRepository;
-    }
+    private CategoryRepository categoryRepository;
 
     public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id);

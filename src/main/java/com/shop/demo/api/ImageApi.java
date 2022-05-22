@@ -1,15 +1,18 @@
 package com.shop.demo.api;
 
-import com.shop.demo.wrapper.ImageWrapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Base64;
 
-@RequiredArgsConstructor
+import com.shop.demo.wrapper.ImageWrapper;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api")

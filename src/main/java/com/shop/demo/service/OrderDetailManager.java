@@ -11,13 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderDetailManager {
 
-    private final OrderDetailRepository orderDetailRepository;
-
     @Autowired
-    public OrderDetailManager(OrderDetailRepository orderDetailRepository) {
-        super();
-        this.orderDetailRepository = orderDetailRepository;
-    }
+    private OrderDetailRepository orderDetailRepository;
 
     public Optional<OrderDetail> findById(Long id) {
         return orderDetailRepository.findById(id);

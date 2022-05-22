@@ -1,11 +1,9 @@
 package com.shop.demo.wrapper;
 
-import lombok.Data;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.shop.demo.model.Product;
+import lombok.Data;
 
 @Data
 public class UserWrapper {
