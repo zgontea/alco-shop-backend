@@ -4,9 +4,13 @@ import java.util.Optional;
 
 import com.shop.demo.model.Category;
 import com.shop.demo.model.Product;
+import com.shop.demo.model.User;
 import com.shop.demo.repo.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,4 +43,12 @@ public class CategoryManager {
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
     }
+
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void runAtStart() {
+//        Category category = new Category();
+//        category.setCategoryName("Wódki");
+//
+//        categoryRepository.save(category);
+//    }
 }

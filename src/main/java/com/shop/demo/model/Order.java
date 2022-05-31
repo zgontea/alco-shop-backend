@@ -51,8 +51,8 @@ public class Order {
     @Column(name = "ship_postal_code", nullable = false)
     private String shipPostalCode;
 
-    @Column(name = "order_date", nullable = false)
-    private Date orderDate;
+//    @Column(name = "order_date", nullable = false)
+//    private Date orderDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

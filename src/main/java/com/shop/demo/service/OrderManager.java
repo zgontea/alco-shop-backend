@@ -22,8 +22,8 @@ public class OrderManager {
         return orderRepository.findAll();
     }
 
-    public Order save(Order category) {
-        return orderRepository.save(category);
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     public void deleteById(Long id) {

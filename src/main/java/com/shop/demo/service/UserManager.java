@@ -8,10 +8,14 @@ import com.shop.demo.model.User;
 import com.shop.demo.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service(value = "userService")
@@ -64,11 +68,11 @@ public class UserManager implements UserDetailsService {
 //	public void runAtStart() {
 //		User user = new User();
 //		user.setAdmin(true);
-//		user.setEmail("eryk@admin.com");
-//		user.setName("Eryk");
+//		user.setEmail("krzys@admin.com");
+//		user.setName("Krzys");
 //		user.setSurname("Admin");
 //		user.setPhone("793130773");
-//		user.setPassword(BCrypt.hashpw("123", salt));
+//		user.setPassword(new BCryptPasswordEncoder().encode("123"));
 //
 //		userRepository.save(user);
 //	}

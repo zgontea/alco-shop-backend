@@ -5,24 +5,35 @@ import java.util.HashSet;
 
 import com.shop.demo.jwt.JwtFilter;
 
+import com.shop.demo.model.User;
+import com.shop.demo.repo.CategoryRepository;
+import com.shop.demo.repo.ProductRepository;
+import com.shop.demo.repo.UserRepository;
+import com.shop.demo.service.CategoryManager;
+import com.shop.demo.service.ProductManager;
+import com.shop.demo.service.UserManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class AlcoShopApp {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(AlcoShopApp.class, args);
-		// CategoryRepository repo = context
-		// 		.getBean(CategoryRepository.class);
-		// CategoryManager categoryManager = new CategoryManager(repo);
+//		 CategoryRepository repo = context
+//		 		.getBean(CategoryRepository.class);
+//		 CategoryManager categoryManager = new CategoryManager(repo);
+//
+//		 ProductRepository repo2 = context
+//		 		.getBean(ProductRepository.class);
+//		 ProductManager productManager = new ProductManager(repo2, repo);
 
-		// ProductRepository repo2 = context
-		// 		.getBean(ProductRepository.class);
-		// ProductManager productManager = new ProductManager(repo2, repo);
 
 	}
 
@@ -46,16 +57,16 @@ public class AlcoShopApp {
 	// 	return filterRegistrationBean;
 	// }
 
-	// @EventListener(ApplicationReadyEvent.class)
-	// public void runAtStart() {
-	// User user = new User();
-	// user.setAdmin(true);
-	// user.setEmail("janekgontarek@gmail.com");
-	// user.setName("Zbyszko");
-	// user.setSurname("TrzyCytryny");
-	// user.setPassword(new BCryptPasswordEncoder().encode("123"));
-	//
-	// userRepository.save(user);
-	// }
+//	 @EventListener(ApplicationReadyEvent.class)
+//	 public void runAtStart() {
+//	 User user = new User();
+//	 user.setAdmin(true);
+//	 user.setEmail("janekgontarek@gmail.com");
+//	 user.setName("Zbyszko");
+//	 user.setSurname("TrzyCytryny");
+//	 user.setPassword(new BCryptPasswordEncoder().encode("123"));
+//
+//	 userRepository.save(user);
+//	 }
 
 }
