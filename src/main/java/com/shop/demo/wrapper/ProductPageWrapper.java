@@ -12,7 +12,7 @@ import java.util.List;
 public class ProductPageWrapper
 {
     @NotNull
-    List<Product> items;
+    List<Product> products;
     @NotNull
     int totalPages;
 }

@@ -21,23 +21,9 @@ public class ProductManager {
     
     @Autowired
     private ProductRepository productRepository;
-    // private final CategoryRepository categoryRepository;
 
-    public List<Product> getProduct(int page) {
-        Page<Product> page1 = productRepository.findAll(
-                PageRequest.of(page, 8));
-
-        return page1.getContent();
-    }
-
-    public ProductPageWrapper getProductPage(int pageNumber) {
-        val page = productRepository.findAll(
-                PageRequest.of(pageNumber, 3));
-
-        return ProductPageWrapper.builder()
-                .items(page.getContent())
-                .totalPages(page.getTotalPages())
-                .build();
+    public ProductPageWrapper getWithOffset(int offset) {
+        return ProductPageWrapper.builder().products(null).totalPages(2).build();
     }
 
     public Optional<Product> findById(Long id) {

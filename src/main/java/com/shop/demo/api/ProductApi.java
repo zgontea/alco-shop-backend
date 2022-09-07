@@ -39,14 +39,9 @@ public class ProductApi {
 	@Autowired
 	private CategoryManager categoryManager;
 
-	@GetMapping("/pages/{pageNumber}")
-	public ProductPageWrapper getProductPage(@PathVariable(value = "pageNumber") int pageNumber) {
-		return productManager.getProductPage(pageNumber);
-	}
-
-	@GetMapping
-	public List<Product> findAllProducts() {
-		return productManager.getProduct(0);
+	@GetMapping("/{offset}")
+	public ProductPageWrapper getWithOffset(@PathVariable(value = "offset") int offset) {
+		return productManager.getWithOffset(offset);
 	}
 
 	@GetMapping("/all")
