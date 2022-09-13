@@ -14,5 +14,5 @@ public class ProductPageWrapper
     @NotNull
     List<Product> products;
     @NotNull
-    int totalPages;
+    long itemsAmount;
 }

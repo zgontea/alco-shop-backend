@@ -4,19 +4,15 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import com.shop.demo.model.User;
-import com.shop.demo.repo.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.shop.demo.model.User;
+import com.shop.demo.repo.UserRepository;
 
 @Service(value = "userService")
 public class UserManager implements UserDetailsService {
@@ -63,18 +59,4 @@ public class UserManager implements UserDetailsService {
 		}
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
 	}
-
-//	@EventListener(ApplicationReadyEvent.class)
-//	public void runAtStart() {
-//		User user = new User();
-//		user.setAdmin(true);
-//		user.setEmail("krzys@admin.com");
-//		user.setName("Krzys");
-//		user.setSurname("Admin");
-//		user.setPhone("793130773");
-//		user.setPassword(new BCryptPasswordEncoder().encode("123"));
-//
-//		userRepository.save(user);
-//	}
-
 }

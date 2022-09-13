@@ -1,6 +1,5 @@
 package com.shop.demo.model;
 
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -50,9 +49,6 @@ public class Order {
 
     @Column(name = "ship_postal_code", nullable = false)
     private String shipPostalCode;
-
-//    @Column(name = "order_date", nullable = false)
-//    private Date orderDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

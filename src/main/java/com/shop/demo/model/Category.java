@@ -1,8 +1,11 @@
 package com.shop.demo.model;
 
-import java.util.Set;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,9 +28,4 @@ public class Category {
 
     @Column(name = "name", unique = true, nullable = false)
     private String categoryName;
-
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "category_id", nullable = false)
-    private Set<Product> products;
-
 }

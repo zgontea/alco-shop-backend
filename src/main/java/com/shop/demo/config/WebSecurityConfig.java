@@ -2,9 +2,6 @@ package com.shop.demo.config;
 
 import javax.annotation.Resource;
 
-import com.shop.demo.jwt.JwtAuthenticationEntryPoint;
-import com.shop.demo.jwt.JwtFilter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.shop.demo.jwt.JwtAuthenticationEntryPoint;
+import com.shop.demo.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -70,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/api/products/id").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/products/filtered").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/products/all").permitAll()
 				// .antMatchers(HttpMethod.POST, "/api/products/add").hasAuthority("ROLE_ADMIN")
 				// .antMatchers(HttpMethod.DELETE, "/api/products/del").hasAuthority("ROLE_ADMIN")

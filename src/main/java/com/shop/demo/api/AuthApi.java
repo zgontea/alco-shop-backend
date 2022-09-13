@@ -3,14 +3,6 @@ package com.shop.demo.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.shop.demo.exception.UserExistsException;
-import com.shop.demo.jwt.TokenProvider;
-import com.shop.demo.model.ShoppingCart;
-import com.shop.demo.model.User;
-import com.shop.demo.service.UserManager;
-import com.shop.demo.wrapper.UserCredencials;
-import com.shop.demo.wrapper.UserWrapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.shop.demo.jwt.TokenProvider;
+import com.shop.demo.model.User;
+import com.shop.demo.service.UserManager;
+import com.shop.demo.wrapper.UserCredencials;
+import com.shop.demo.wrapper.UserWrapper;
 
 import nonapi.io.github.classgraph.json.JSONSerializer;
 
@@ -69,7 +67,7 @@ public class AuthApi {
     public ResponseEntity<Void> register(@RequestBody UserWrapper registerCredentials) {
         User existingUser = userManager.findByEmail(registerCredentials.getEmail());
         if (existingUser != null) {
-            throw new UserExistsException();
+            return ResponseEntity.status(409).build();
         }
 
         User user = User.builder()
@@ -79,7 +77,6 @@ public class AuthApi {
                 .surname(registerCredentials.getSurname())
                 .phone(registerCredentials.getPhone())
                 .admin(false)
-                .shoppingCart(new ShoppingCart())
                 .build();
 
         userManager.save(user);

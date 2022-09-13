@@ -6,7 +6,7 @@ insert into categories (category_id, name) values(3, 'Piwa');
 insert into categories (category_id, name) values(4, 'Whiskey');
 insert into categories (category_id, name) values(5, 'Likiery');
 
-insert into products (name, image, unit_price, description, size, concentration, category_id) values('Absolut lime', 'absolut-lime.jpg', 54.99, 'Absolut o smaku limonki', 1000, 40, 1);
+insert into products (name, image, unit_price, description, size, concentration, category_id) values('Absolut Lime', 'absolut-lime.jpg', 54.99, 'Absolut o smaku limonki', 1000, 40, 1);
 insert into products (name, image, unit_price, description, size, concentration, category_id) values('Absolut Grapefruit', 'absolut-grapefruit.jpg', 53.99, 'Absolut o smaku grejfrutowym', 1000, 40, 1);
 insert into products (name, image, unit_price, description, size, concentration, category_id) values('Absolut Raspberry', 'absolut-raspberri.jpg', 52.99, 'Absolut o smaku malinowym', 1000, 40, 1);
 insert into products (name, image, unit_price, description, size, concentration, category_id) values('Absolut', 'absolut-vodka.jpg', 57.99, 'Wódka czysta Absolut', 1000, 40, 1);

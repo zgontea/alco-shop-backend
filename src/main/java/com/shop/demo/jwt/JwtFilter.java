@@ -20,6 +20,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 
 public class JwtFilter extends OncePerRequestFilter {
@@ -65,8 +66,11 @@ public class JwtFilter extends OncePerRequestFilter {
                 System.err.println("An error occured during getting username from token");
             } catch (ExpiredJwtException e) {
                 System.err.println("The token is expired and not valid anymore");
+                response.sendError(440, "Login Time-out");
             } catch (SignatureException e) {
                 System.err.println("Authentication Failed. Username or Password not valid");
+            } catch (MalformedJwtException e) {
+                System.err.println(e.getMessage());
             }
         }
 
