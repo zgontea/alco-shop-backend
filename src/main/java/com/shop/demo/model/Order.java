@@ -1,5 +1,7 @@
 package com.shop.demo.model;
 
+import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,29 +28,34 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 public class Order {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "ship_to", nullable = false)
-    private String shipTo;
+    @Column(name = "created_date", nullable = true)
+    private Date createdDate;
 
-    @Column(name = "ship_email", nullable = false)
+    @Column(name = "ship_address", nullable = true)
+    private String shipAddress;
+
+    @Column(name = "ship_city", nullable = true)
+    private String shipCity;
+
+    @Column(name = "ship_country", nullable = true)
+    private String shipCountry;
+
+    @Column(name = "ship_email", nullable = true)
     private String shipEmail;
 
     @Column(name = "ship_phone_no", nullable = true)
     private String shipPhoneNo;
 
-    @Column(name = "ship_city", nullable = false)
-    private String shipCity;
-
-    @Column(name = "ship_country", nullable = false)
-    private String shipCountry;
-
-    @Column(name = "ship_postal_code", nullable = false)
+    @Column(name = "ship_postal_code", nullable = true)
     private String shipPostalCode;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -57,4 +64,20 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
 
+    public static enum OrderStatus {
+        DRAFT,
+        NEW,
+        CONFIRMED,
+        SENT,
+        DELIVERED,
+        CANCELED
+    }
+
+    public static Map<OrderStatus, String> statusToString = Map.of(
+        OrderStatus.DRAFT, "Draft",
+        OrderStatus.NEW, "New",
+        OrderStatus.CONFIRMED, "Confirmed",
+        OrderStatus.SENT, "Sent",
+        OrderStatus.DELIVERED, "Delivered",
+        OrderStatus.CANCELED, "Canceled");
 }
