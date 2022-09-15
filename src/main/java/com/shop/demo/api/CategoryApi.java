@@ -39,11 +39,6 @@ public class CategoryApi {
         return categoryManager.findById(employeeId);
     }
 
-    // @GetMapping("/categoryName")
-    // public Iterable<Product> getProductsByCategoryName(@RequestParam String categoryName) {
-    //     return categoryManager.findProductsByCategoryName(categoryName);
-    // }
-
     @Secured("ROLE_ADMIN")
     @PostMapping("/save")
     public Category add(@RequestBody Category category) {

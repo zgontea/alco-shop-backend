@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ImageApi {
     @GetMapping(value = "/images/{name}")
-    @CrossOrigin(origins = { "http://25.50.55.41:4200", "http://localhost:4200" })
+    @CrossOrigin(origins = { "http://25.13.125.17:4200", "http://localhost:4200" })
     public ImageWrapper getImage(@PathVariable String name) {
         File file = new File("./images/" + name);
 

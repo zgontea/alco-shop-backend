@@ -1,4 +1,4 @@
-insert into users (name, surname, email, password, phone, is_admin) values('Mr.', 'Admin', 'admin@admin.com', '$2a$10$32IDW.SWwZ64BTvaxy02oONQFoa4SmhcKAAUuYxm77ena7uS9lEpO', '793130773', true);
+insert into users (name, surname, email, password, phone, is_admin) values('Mr.', 'Admin', 'admin@admin.com', '$2a$10$32IDW.SWwZ64BTvaxy02oONQFoa4SmhcKAAUuYxm77ena7uS9lEpO', '123456789', true);
 
 insert into categories (category_id, name) values(1, 'Wódki');
 insert into categories (category_id, name) values(2, 'Wina');
