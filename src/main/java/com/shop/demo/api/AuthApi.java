@@ -59,6 +59,7 @@ public class AuthApi {
         response.put("access_token", token);
         response.put("is_admin", String.valueOf(userFromDatabase.isAdmin()));
         response.put("email", userFromDatabase.getEmail());
+        response.put("user_id", Long.toString(userFromDatabase.getId()));
 
         return ResponseEntity.ok(JSONSerializer.serializeObject(response));
     }

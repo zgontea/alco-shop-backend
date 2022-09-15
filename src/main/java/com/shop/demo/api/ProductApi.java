@@ -70,8 +70,19 @@ public class ProductApi {
 
 	@Secured({ "ROLE_ADMIN" })
 	@PutMapping("/upd")
-	public Product update(@RequestBody Product product) {
-		return productManager.save(product);
+	public Product update(@RequestBody ProductWrapper product) {
+		Product productToUpdate = null;
+		try {
+			productToUpdate = productManager.findById(product.getId()).get();
+			productToUpdate.setName(product.getName());
+			productToUpdate.setDescription(product.getDescription());
+			productToUpdate.setUnitPrice(product.getUnitPrice());
+			productToUpdate.setSize(product.getSize());
+			productToUpdate.setConcentration(product.getConcentration());
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return productManager.save(productToUpdate);
 	}
 
 	@Secured({ "ROLE_ADMIN" })
@@ -97,7 +108,6 @@ public class ProductApi {
 				.description(productWrapper.getDescription())
 				.category(category)
 				.build();
-		// category.getProducts().add(product);
 		return productManager.save(product);
 	}
 

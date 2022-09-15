@@ -53,9 +53,8 @@ public class TokenProvider implements Serializable {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        return (
-              username.equals(userDetails.getUsername())
-                    && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername())
+                && !isTokenExpired(token));
     }
 
     public String generateToken(Authentication authentication) {
@@ -80,7 +79,8 @@ public class TokenProvider implements Serializable {
 
         final Claims claims = (Claims) claimsJws.getBody();
 
-        final Collection<GrantedAuthority> authorities = Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+        final Collection<GrantedAuthority> authorities = Arrays
+                .stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 

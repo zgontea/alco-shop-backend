@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.shop.demo.model.OrderDetail;
 import com.shop.demo.service.OrderDetailManager;
+import com.shop.demo.wrapper.ShoppingCartItemWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -46,19 +47,19 @@ public class OrderDetailApi {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PostMapping("/save")
-    public OrderDetail add(@RequestBody OrderDetail orderDetail) {
-        return orderDetailManager.save(orderDetail);
+    public OrderDetail add(@RequestBody ShoppingCartItemWrapper shoppingCartItem) {
+        return orderDetailManager.save(shoppingCartItem);
     }
 
     @Secured({"ROLE_ADMIN"})
     @PutMapping("/upd")
-    public OrderDetail update(@RequestBody OrderDetail orderDetail) {
-        return orderDetailManager.save(orderDetail);
+    public OrderDetail update(@RequestBody ShoppingCartItemWrapper shoppingCartItem) {
+        return orderDetailManager.save(shoppingCartItem);
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/del")
-    public void delete(@RequestParam Long index) {
-        orderDetailManager.deleteById(index);
+    public void delete(@RequestParam Long id) {
+        orderDetailManager.deleteById(id);
     }
 }

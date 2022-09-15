@@ -1,7 +1,7 @@
 package com.shop.demo.model;
 
-import java.util.Date;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,16 +36,13 @@ public class Order {
     private Long id;
 
     @Column(name = "created_date", nullable = true)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "ship_address", nullable = true)
     private String shipAddress;
 
     @Column(name = "ship_city", nullable = true)
     private String shipCity;
-
-    @Column(name = "ship_country", nullable = true)
-    private String shipCountry;
 
     @Column(name = "ship_email", nullable = true)
     private String shipEmail;
@@ -54,30 +53,17 @@ public class Order {
     @Column(name = "ship_postal_code", nullable = true)
     private String shipPostalCode;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = true)
     private String status;
 
+    @Column(name = "total_price", nullable = true)
+    private BigDecimal totalPrice;
+
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<OrderDetail> orderDetails;
-
-    public static enum OrderStatus {
-        DRAFT,
-        NEW,
-        CONFIRMED,
-        SENT,
-        DELIVERED,
-        CANCELED
-    }
-
-    public static Map<OrderStatus, String> statusToString = Map.of(
-        OrderStatus.DRAFT, "Draft",
-        OrderStatus.NEW, "New",
-        OrderStatus.CONFIRMED, "Confirmed",
-        OrderStatus.SENT, "Sent",
-        OrderStatus.DELIVERED, "Delivered",
-        OrderStatus.CANCELED, "Canceled");
 }

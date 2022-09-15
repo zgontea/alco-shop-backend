@@ -42,8 +42,11 @@ public class JwtFilter extends OncePerRequestFilter {
         "/api/users/id",
         "/api/users/email",
         "/api/users/upd",
-        "/api/orders/save",
-        "/api/orderDetails/save"));
+        "/api/orders/sendOrder",
+        "/api/orders/userOrder",
+        "/api/orderDetails/save",
+        "/api/orderDetails/del",
+        "/api/orders/id"));
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
